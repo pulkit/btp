@@ -1,5 +1,7 @@
 from django.conf.urls import patterns,include,url 
 
 urlpatterns = patterns('',
-	url(r'^dss/$','implement.views.Tractor'),
+	url(r'^tractor/query$','implement.views.query'),
+	url(r'^tractor/create$','implement.views.create'),
+
 )
