@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 class Tractor(models.Model):
 	make = models.CharField(max_length = 200)
@@ -16,4 +17,24 @@ class Tractor(models.Model):
 	def __unicode__(self):
 		return self.make
 
-# Create your models here.
+
+class TractorForm(ModelForm):
+    class Meta:
+        model = Tractor
+
+class Tire(models.Model):
+    types = models.CharField(max_length = 200)
+    size = models.IntegerField()
+    width = models.IntegerField()
+    diameter = models.IntegerField()
+    static_radius = models.IntegerField()
+    capacity = models.IntegerField()
+    rating = models.IntegerField()
+    tread_code = models.IntegerField()
+
+    def __unicode__(self):
+        return self.size
+
+class TireForm(ModelForm):
+    class Meta:
+        model = Tire

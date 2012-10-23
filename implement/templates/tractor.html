@@ -1,17 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="basic">
-	<h2> Create a new profile </h2>
-	<form method="post" action="/dss/tractor/query">{% csrf_token %}
-	<label for="model">Model</label>
-	<input type="text" name="model" id="model">
-	<label for="make">Make</label>
-	<input type="text" name="make" id="make">
-	<label for="power">Power</label>
-	<input type="text" name="power" id="power">
-	<input type="submit" value="query">
-	</form>
-</div>
+
 <div class="detail">
 	<form method="post" action="">{% csrf_token %}
 	<label for="model">Model</label>

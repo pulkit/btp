@@ -1,7 +1,9 @@
 from django.conf.urls import patterns,include,url 
 
-urlpatterns = patterns('',
-	url(r'^tractor/query$','implement.views.query'),
-	url(r'^tractor/create$','implement.views.create'),
+from implement.models import TractorForm,TireForm
+from implement.views import DSSWizard
 
+urlpatterns = patterns('',
+#	url(r'^tractor/create$','implement.views.create'),
+    url(r'^tractor/form/$',DSSWizard.as_view([TractorForm, TireForm])),
 )
