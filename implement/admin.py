@@ -1,4 +1,4 @@
-from implement.models import Tractor
+from implement.models import *
 from django.contrib import admin
 
 class TractorAdmin(admin.ModelAdmin):
@@ -8,3 +8,7 @@ class TractorAdmin(admin.ModelAdmin):
 	]
 
 admin.site.register(Tractor,TractorAdmin)
+admin.site.register(Tire)
+admin.site.register(Implement)
+admin.site.register(Other)
+admin.site.register(Coefficient)
