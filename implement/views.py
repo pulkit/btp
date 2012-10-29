@@ -6,6 +6,8 @@ from django.contrib.formtools.wizard.views import WizardView
 
 from implement.models import Tractor 
 
+from math import*
+
 class DSSWizard(SessionWizardView):
     def get_template_names(self):
         return ['form.html'.format(self.steps.current)] 
@@ -21,9 +23,9 @@ class DSSWizard(SessionWizardView):
         T = tractor.max_torque
         FW = tractor.front_weight
         RW = tractor.rear_weight
-        WB = tractor.wheelbase
+        L = tractor.wheelbase
         HP = tractor.hitch_point
-        cg_rear = tractor.cg_rear
+        Xcgt = tractor.cg_rear
         cg_height = tractor.cg_height
         tire_size = tire.tire_size
         tire_width = tire.tire_width
@@ -37,7 +39,7 @@ class DSSWizard(SessionWizardView):
         BW = implement.bottom_width
         IW = implement.implement_width
         w = implement.weight
-        CH = implement.cg_hitch
+        Xcgi = implement.cg_hitch
         TD = other.tillage_depth
         v = other.speed
         BD = other.bulk_density
@@ -56,6 +58,16 @@ class DSSWizard(SessionWizardView):
         a_2 = coefficient.a_2
         b_2 = coefficient.b_2
         c_2 = coefficient.c_2
+        Wt = FW+RW
+        D = f*(a + b*v + c*v*v)*IW*TD
+        s = 0.02
+        MR = 0.04
+        Bn = CI*IW*TD/
+        GTR = a1*(1-exp(-a2*Bn))*(1-exp(-a3*s)) + a4
+        pro = a7/Bn + a4 + a8*s/sqrt(Bn)
+        ef = pro
+        Rf = ((w + Py)*(Xcgi + L +ef)+ Wt(L + ef -Xcgt) - D*2*TD/3)/(L-er+ef)
+
 
         return HttpResponse(m0.make)
     
