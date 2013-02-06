@@ -107,27 +107,33 @@ class DSSWizard(SessionWizardView):
         Bnf  = (((CI * bf * df) / (Rf)))*((1+A5 * 0.2)/(1+A6 * (bf/df)))
         pr = A7/Bnr + A4 +(A8*s/sqrt(Bnr))
         pf = A7/Bnf + A4 +(A8*s/sqrt(Bnf))
-        Pet = (T*116  / rr ) - (pro * Rr + 0.04 * Rf)
+        #is eta assumed to be 116 ?
+        Pet = (T*116*eff / rr ) - (pro * Rr + 0.04 * Rf)
+        # what is WTF and WTI ?
         WTF = Rf - FW
         WTI = Rr-RW - WTF
-        #while Pet > Pst:
-         #   if D>Pst:
-          #      k = 0
-            #    s = s + 0.001
-             #   Rr = ((Wm + Py)*(Xcgi + Hd + L + 0.04*rf)+Wt*(L+0.04*rf -Xcgt) - D*Yd)/(L-0.04*rr + 0.04*rf)
- #               Rf = Wm + Wt + Py - Rr
-#                Bn  = (((CI* 1000* br * dr) / (Rr/2)))*((1+A5 * 0.2)/(1+A6 * (br/dr)))
-  #              pro = (A7/Bn) + A4 + A8*s /sqrt(Bn)
-   #             gtr = A1*(1-exp(-A2*Bn))*(1-exp(-A3*s)) +A4
-    #            cot = gtr - pro
-     #           TE = cot*(1-s)/gtr
-      #          Pst = cot*Rr
-       #         Pet = (T*116 * eff / rr ) - (pro * Rr + 0.04 * Rf)
-        #    else:
-         #       k = 1
-          #      break
+        while Pet > Pst:
+            if D>Pst:
+                k = 0
+                s = s + 0.001
+                Rr = ((Wm + Py)*(Xcgi + Hd + L + 0.04*rf)+Wt*(L+0.04*rf -Xcgt) - D*Yd)/(L-0.04*rr + 0.04*rf)
+                Rf = Wm + Wt + Py - Rr
+                Bn  = (((CI* 1000* br * dr) / (Rr/2)))*((1+A5 * 0.2)/(1+A6 * (br/dr)))
+                pro = (A7/Bn) + A4 + A8*s /sqrt(Bn)
+                gtr = A1*(1-exp(-A2*Bn))*(1-exp(-A3*s)) +A4
+                cot = gtr - pro
+                TE = cot*(1-s)/gtr
+                Pst = cot*Rr
+                Pet = (T*116 * eff / rr ) - (pro * Rr + 0.04 * Rf)
+                print(Pet)
+                print(Pst)
+                print(D)
+            else:
+                k = 1
+                break
         Ptr = D*v*5/(TE*18)
         Put = (Ptr*100)/(P*1000*(1-0.20))
+        #conditions have to be re-examined and tested
         if s <0.08:
             s_out =  "Increase depth or speed of operation slip should not be less than 8%"
         if s > 0.15:

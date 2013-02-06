@@ -119,7 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.formtools',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'south',
+#    'south',
     'implement',
 )
 
@@ -152,6 +152,5 @@ LOGGING = {
     }
 }
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
-
+#import dj_database_url
+#DATABASES['default'] =  dj_database_url.config()
