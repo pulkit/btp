@@ -7,6 +7,8 @@ from django.shortcuts import render_to_response
 
 from math import*
 
+import kookoo
+
 class DSSWizard(SessionWizardView):
     def get_template_names(self):
         return ['form.html'.format(self.steps.current)] 

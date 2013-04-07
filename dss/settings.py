@@ -121,6 +121,15 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 #    'south',
     'implement',
+    'rapidsms',
+    'rapidsms.contrib.handlers',
+    'rapidsms.contrib.httptester',
+    'rapidsms.contrib.messagelog',
+    'rapidsms.contrib.messaging',
+    'rapidsms.contrib.registration',
+    'rapidsms.contrib.echo',
+    'rapidsms.contrib.default',
+    #'rapidsms.backends.kannel',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -154,3 +163,29 @@ LOGGING = {
 # Parse database configuration from $DATABASE_URL
 #import dj_database_url
 #DATABASES['default'] =  dj_database_url.config()
+
+INSTALLED_BACKENDS = {
+	"kannel-usb0-smsc":{
+		"ENGINE":"rapidsms.backends.kannel.KannelBackend",	
+		"sendsms_url":"http://127.0.0.1:13013/cgi-bin/sendsms",
+		"sendsms-params":{"smsc":"usb0-modem",
+			"from":"9735483626",#not set automatically by SMSC
+	         	"username":"rapidsms",
+			"password":"rapid123"},
+		"coding":0,
+		"charset":"ascii",
+		"encode_errors":"ignore",#strip out unknown (unicode) characters
+		"delivery_report_url":"http://127.0.0.1:8000",
+	},
+	"kannel-fake-smsc":{
+		"ENGINE":"rapidsms.backends.kannel.KannelBackend",	
+		"sendsms_url":"http://127.0.0.1:13013/cgi-bin/sendsms",
+		"sendsms-params":{"smsc":"FAKE",
+			"from":"123",#not set automatically by SMSC
+	         	"username":"rapidsms",
+			"password":"rapid123"},
+		"coding":0,
+		"charset":"ascii",
+		"encode_errors":"ignore",#strip out unknown (unicode) characters
+	},
+}
