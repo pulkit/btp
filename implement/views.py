@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 
 from math import*
 
-import kookoo
+from kookoo_sms import send_kookoo_sms
 
 class DSSWizard(SessionWizardView):
     def get_template_names(self):
@@ -114,25 +114,25 @@ class DSSWizard(SessionWizardView):
         # what is WTF and WTI ?
         WTF = Rf - FW
         WTI = Rr-RW - WTF
-        while Pet > Pst:
-            if D>Pst:
-                k = 0
-                s = s + 0.001
-                Rr = ((Wm + Py)*(Xcgi + Hd + L + 0.04*rf)+Wt*(L+0.04*rf -Xcgt) - D*Yd)/(L-0.04*rr + 0.04*rf)
-                Rf = Wm + Wt + Py - Rr
-                Bn  = (((CI* 1000* br * dr) / (Rr/2)))*((1+A5 * 0.2)/(1+A6 * (br/dr)))
-                pro = (A7/Bn) + A4 + A8*s /sqrt(Bn)
-                gtr = A1*(1-exp(-A2*Bn))*(1-exp(-A3*s)) +A4
-                cot = gtr - pro
-                TE = cot*(1-s)/gtr
-                Pst = cot*Rr
-                Pet = (T*116 * eff / rr ) - (pro * Rr + 0.04 * Rf)
-                print(Pet)
-                print(Pst)
-                print(D)
-            else:
-                k = 1
-                break
+#       while Pet > Pst:
+         #   if D>Pst:
+        #        k = 0
+          #      s = s + 0.001
+           #     Rr = ((Wm + Py)*(Xcgi + Hd + L + 0.04*rf)+Wt*(L+0.04*rf -Xcgt) - D*Yd)/(L-0.04*rr + 0.04*rf)
+            #    Rf = Wm + Wt + Py - Rr
+             #   Bn  = (((CI* 1000* br * dr) / (Rr/2)))*((1+A5 * 0.2)/(1+A6 * (br/dr)))
+              #  pro = (A7/Bn) + A4 + A8*s /sqrt(Bn)
+               # gtr = A1*(1-exp(-A2*Bn))*(1-exp(-A3*s)) +A4
+                #cot = gtr - pro
+               # TE = cot*(1-s)/gtr
+               # Pst = cot*Rr
+               # Pet = (T*116 * eff / rr ) - (pro * Rr + 0.04 * Rf)
+               # print(Pet)
+               # print(Pst)
+               # print(D)
+            #else:
+            #    k = 1
+            #    break
         Ptr = D*v*5/(TE*18)
         Put = (Ptr*100)/(P*1000*(1-0.20))
         #conditions have to be re-examined and tested
@@ -155,7 +155,7 @@ class DSSWizard(SessionWizardView):
             p_out = "Tractor is OverLoaded reduce depth or speed of operation"
 
 
-         
+        send_kookoo_sms(phone_no='9735483626',message="Testing")
         return render_to_response('final.html',{'pto':P,'cone_index':CI,'bulk_density':bulk_density,'imp_width':Mw,'depth':Td,'speed':v,'max_pull':Pet,'draft':D,'slip':s*100,'cot':cot,'mrr':pro,'TE':TE,'Krwf':Rr/Wt,'Kfwf':Rf/Wt,'db_power':D*v,'pu':Put,'s_out':s_out,'Kwef_out':Kwef_out,'p_out':p_out},context_instance = RequestContext(self.request))
 
   
