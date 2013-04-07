@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from rapidsms.backends.kannel.views import KannelBackendView
 
 from django.contrib import admin
 admin.autodiscover()
