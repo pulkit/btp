@@ -73,8 +73,8 @@ class Tractor(models.Model):
 
 class BasicTractorForm(ModelForm):
     
-    make = forms.ChoiceField(choices = tuple((t.make,t.make) for t in  Tractor.objects.all()))
-    model =forms.ChoiceField(choices = tuple((t.model,t.model) for t in  Tractor.objects.all()))       
+    #make = forms.ChoiceField(choices = tuple((t.make,t.make) for t in  Tractor.objects.all()))
+    #model =forms.ChoiceField(choices = tuple((t.model,t.model) for t in  Tractor.objects.all()))       
     class  Meta:
         model = Tractor
         fields = ('make','model',)
