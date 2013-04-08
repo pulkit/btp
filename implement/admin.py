@@ -1,4 +1,4 @@
-from implement.models import *
+from models import *
 from django.contrib import admin
 
 class TractorAdmin(admin.ModelAdmin):

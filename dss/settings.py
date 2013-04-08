@@ -1,5 +1,6 @@
 import os
-ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+PROJECT_PATH = os.path.join(PROJECT_ROOT, 'dss')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -45,18 +46,18 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(PROJECT_ROOT,'public','media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT =     os.path.join(ROOT_PATH,'static')
+STATIC_ROOT =     os.path.join(PROJECT_ROOT,'public','static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -64,6 +65,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -87,6 +89,16 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.static',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -94,7 +106,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'dss.urls'
@@ -103,7 +115,8 @@ ROOT_URLCONF = 'dss.urls'
 WSGI_APPLICATION = 'dss.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(ROOT_PATH,'templates'),
+    os.path.join(PROJECT_PATH, 'templates'),
+    os.path.join(PROJECT_ROOT, 'public','templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -121,6 +134,17 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 #    'south',
     'implement',
+    'django_tables2',
+    'django_nose',
+    'selectable',
+    'rapidsms',
+    'rapidsms.contrib.handlers',
+    'rapidsms.contrib.httptester',
+    'rapidsms.contrib.messagelog',
+    'rapidsms.contrib.messaging',
+    'rapidsms.contrib.registration',
+    'rapidsms.contrib.echo',
+    'rapidsms.contrib.default',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -152,10 +176,25 @@ LOGGING = {
     }
 }
 #Parse database configuration from $DATABASE_URL
-import dj_database_url
+#import dj_database_url
 
-DATABASES['default'] =  dj_database_url.config()
+#DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+INSATLLED_BACKENDS = {
+    "message_tester":{
+        "ENGINE":"rapidsms.contrib.httptester.backend",
+    },
+}
+
+#RAPIDSMS_TABS = [
+#    ("rapidsms.contrib.messagelog.views.message_log",       "Message Log"),
+#    ("rapidsms.contrib.registration.views.registration",    "Registration"),
+#    ("rapidsms.contrib.messaging.views.messaging",          "Messaging"),
+#    ("rapidsms.contrib.locations.views.locations",          "Map"),
+#    ("rapidsms.contrib.scheduler.views.index",              "Event Scheduler"),
+#    ("rapidsms.contrib.httptester.views.generate_identity", "Message Tester"),
+#]
 
