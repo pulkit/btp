@@ -1,11 +1,8 @@
-from rapidsms.app.base import AppBase
+from rapidsms.apps.base import AppBase
 
-class PingPong(AppBase):
-    
-    def handle(self,msg):
-        """Handles incoming message"""
-        if msg.text=='ping':
-            msg.respond('pong')
+class App(AppBase):
+    def handle(self, msg):
+        if msg.text=='pings':
+            msg.respond("hello world")
             return True
         return False
-
