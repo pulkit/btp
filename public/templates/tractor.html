@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block content %}
+
+<div class="detail">
+	<form method="post" action="">{% csrf_token %}
+	<label for="model">Model</label>
+	<input type="text" name="model" id="model">
+	<label for="make">Make</label>
+	<input type="text" name="make" id="make">
+	<label for="power">Power</label>
+	<input type="text" name="power" id="power">
+	<label for="rpm">rpm</label>
+	<input type="text" name="rpm" id="rpm" value="{{ object.rpm }}" >
+	<label for="torque">Torque</label>
+	<input type="text" name="torque" id="torque" value="{{ object.max_torque }}">
+	<label for="front_weight">Static weight on front tire</label>
+	<input type="text" name="front_weight" id="front_weight" value="{{ object.front_weight}}">
+	<label for="rear_weight">Static weight on rear tire</label>
+	<input type="text" name="rear_weight" id="rear_weight" value="{{ object.rear_weight}}">
+	<label for="wheelbase">Wheelbase</label>
+	<input type="text" name="wheelbase" id="wheelbase" value="{{ object.wheelbase}}">
+	<label for="hitch_point">Hitch Point</label>
+	<input type="text" name="hitch_point" id="hitch_point" value="{{ object.hitch_point}}">
+	<label for="cg_rear">distance of cg from rear </label>
+	<input type="text" name="cg_rear" id="cg_rear" value="{{ object.cg_rear }}">
+	
+	<label for="cg_height">distance of cg height </label>
+	<input type="text" name="cg_height" id="cg_height" value="{{ object.cg_height }}">
+	
+	
+<input type="submit" class="btn" value="create">
+	</form>
+</div>
+{% endblock %}

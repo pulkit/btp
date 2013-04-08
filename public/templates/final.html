@@ -1,0 +1,74 @@
+{% extends "index.html" %}
+{% load i18n %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+
+{% block head %}
+{{ wizard.form.media }}
+{% endblock %}
+{% block content %}
+<h3>Results</h3>
+<table border="1">
+<tr>
+<td><p>PTO power </p></td>
+<td><b>{{ pto }}</b></td>
+</tr>
+<tr>
+<td><p>cone index</p></td>
+<td><b>{{ cone_index }}</b></td>
+</tr>
+<tr>
+<td><p>{{ bulk_density }}</p></td>
+<td><b>{{ bulk_density }}</b></td>
+</tr>
+<tr>
+<td><p>implement  width</p></td>
+<td><b>{{ imp_width }}</b></td>
+</tr>
+<tr>
+<td><p>Depth of Operation</p></td>
+<td><b>{{ Td }}</b></td>
+</tr>
+<tr>
+<td><p>Speed of operation</p></td>
+<td><b>{{ speed }}</b></td>
+</tr>
+<tr>
+<td><p>Max pull developed by engine</p></td>
+<td><b>{{ max_pull }}</b></td>
+</tr>
+<tr>
+<td><p>slip</p></td>
+<td><b>{{ slip }}</b></td>
+</tr>
+<tr>
+<td><p>Motion Resistance Ratio</p></td>
+<td><b>{{ mrr }}</b></td>
+</tr>
+<tr>
+<td><p> Tractive efficiency</p></td>
+<td><b>{{ TE }}</b></td>
+</tr><tr>
+<td><p>Rear Weight utilization factor</p></td>
+<td><b>{{ Krwf }}</b></td>
+</tr><tr>
+<td><p>Front weight utilization factor</p></td>
+<td><b>{{ Kfwf }}</b></td>
+</tr>
+<tr>
+<td><p>Drawbar power</p></td>
+<td><b>{{ db_power }}</b></td>
+</tr>
+<tr>
+<td><p>Power utilization</p></td>
+<td><b>{{ pu }}</b></td>
+</tr>
+<tr>
+<td><p>Front weight utilization factor</p></td>
+<td><b>{{ Kfwf }}</b></td>
+</tr>
+</table>
+<p style="color:red"><b>{{ s_out }}</b><p>
+<p style="color:red"><b>{{ Kwef_out }}</b></p>
+<p style="color:red"><b>{{ p_out }}</b></p>
+{% endblock %}

@@ -1,0 +1,17 @@
+.btn{
+  vertical-align: top;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+ body {
+            color: purple;
+                background-color: #d8da3d }
+
+.container{
+background-color:yellow;
+}
+
+
+

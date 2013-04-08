@@ -11,6 +11,9 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
+
+
+
     # Uncomment the next line to enable the admin:
      url(r'^admin/', include(admin.site.urls)),
      url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
@@ -29,5 +32,7 @@ urlpatterns = patterns('',
      
      (r'^messagelog/', include('rapidsms.contrib.messagelog.urls')),
      (r'^messaging/', include('rapidsms.contrib.messaging.urls')),
+     (r"^selectable/", include("selectable.urls")),
+
      (r'^registration/', include('rapidsms.contrib.registration.urls')),
 )
