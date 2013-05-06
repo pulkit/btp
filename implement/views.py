@@ -271,7 +271,7 @@ def result_out(self,s,kwef,Put):#conditions have to be re-examined and teste
     if s <0.08:
         s_out =  "Increase depth or speed of operation slip should not be less than 8%"
     if s > 0.15:
-        s_out =  "reduce depth or speed of operation or ballast rear axle of tractor slip should not be greater than 15%"
+        s_out =  "reduce depth or speed of operation or ballast rear axle of tractor slip should not be greater than 0.15"
     if kwef <0.2:
         Kwef_out =  "reduce depth or speed of operation or ballast rear axle of tractor Front axle weight utilization factor should not be less than 0.2"
     else:
@@ -281,8 +281,8 @@ def result_out(self,s,kwef,Put):#conditions have to be re-examined and teste
     if Put>95 and Put<100:
         p_out =  "Tractor is properly loaded"
     elif Put<95:
-        p_out =  "Tractor is underloaded"
+        p_out =  "Tractor is underloaded increase the width of the implement or increase depth"
     elif Put>100:
-        p_out = "Tractor is OverLoaded reduce depth or speed of operation"
+        p_out = "Tractor is OverLoaded reduce width of implement or  depth or speed of operation"
     return(s_out,Kwef_out,p_out)
 
