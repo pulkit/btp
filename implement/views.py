@@ -114,9 +114,9 @@ class DSSWizard(SessionWizardView):
         # what is WTF and WTI ?
         WTF = Rf - FW
         WTI = Rr-RW - WTF
+        kwef = 0
         while Pet > Pst:
             if D>Pst:
-                k = 0
                 s = s + 0.001
                 Rr = ((Wm + Py)*(Xcgi + Hd + L + 0.04*rf)+Wt*(L+0.04*rf -Xcgt) - D*Yd)/(L-0.04*rr + 0.04*rf)
                 Rf = Wm + Wt + Py - Rr
@@ -131,31 +131,44 @@ class DSSWizard(SessionWizardView):
                 print(Pst)
                 print(D)
             else:
-                k = 1
+                Ptr = D*v*5/(TE*18)
+                Put = (Ptr*100)/(P*1000*(1-0.20))
+                kwef = Rf/Wt
+                out = result_out(s,kwef,Put)
                 break
-        Ptr = D*v*5/(TE*18)
-        Put = (Ptr*100)/(P*1000*(1-0.20))
-        #conditions have to be re-examined and tested
-        if s <0.08:
-            s_out =  "Increase depth or speed of operation slip should not be less than 8%"
-        if s > 0.15:
-            s_out =  "reduce depth or speed of operation or ballast rear axle of tractor slip should not be greater than 15%"
-        if Rf/Wt <0.2:
-            Kwef_out =  "reduce depth or speed of operation or ballast rear axle of tractor Front axle weight utilization factor should not be less than 0.2"
+        if D>Pet:
+            out = "The Tractor is overloaded reduce width of implement or depth or speed of implement"
         else:
-            Kwef_out = "Kwef is in the satisfactory range"
-        if s>0.08 and s <0.15:
-            s_out =  "Slip is in the satisfactory range" 
- 
-        if Put>95 and Put<100:
-            p_out =  "Tractor is properly loaded"
-        elif Put<95:
-            p_out =  "Tractor is underloaded"
-        elif Put>100:
-            p_out = "Tractor is OverLoaded reduce depth or speed of operation"
+            kwef = Rf/Wt
+            Ptr = D*v*5/(TE*18)
+            Put = (Ptr*100)/(P*1000*(1-0.20))
+            out = result_out(s,kwef,Put)
 
-
-        return render_to_response('final.html',{'pto':P,'cone_index':CI,'bulk_density':bulk_density,'imp_width':Mw,'depth':Td,'speed':v,'max_pull':Pet,'draft':D,'slip':s*100,'cot':cot,'mrr':pro,'TE':TE,'Krwf':Rr/Wt,'Kfwf':Rf/Wt,'db_power':D*v,'pu':Put,'s_out':s_out,'Kwef_out':Kwef_out,'p_out':p_out},context_instance = RequestContext(self.request))
+        p_out = out[2]
+        s_out = out[0]
+        Kwef_out = out[1]
+        P = ceil(P*100)/100
+        CI = ceil(CI*100)/100
+        bulk_density = ceil(bulk_density*100)/100
+        Mw = ceil(Mw*100)/100
+        #Td = ceil(Td*100)/100
+        v = ceil(v*100)/100
+        Pet = ceil(Pet*100)/100
+        D = ceil(D*100)/100
+        s = ceil(s*1000)/1000
+        cot = ceil(cot*100)/100
+        pro = ceil(pro*100)/100
+        TE = ceil(TE*100)/100
+        Krwf = Rr/Wt
+        Krwf = ceil(Krwf*100)/100
+        Kfwf = Rf/Wt
+        Kfwf = ceil(Kfwf*100)/100
+        db_power = D*v
+        db_power = ceil(db_power*100)/100
+        Put = ceil(Put*100)/100
+        #Kwef_out = ceil(Kwef_out*100)/100
+        #p_out = ceil(p_out*100)/100
+        return render_to_response('final.html',{'pto':P,'cone_index':CI,'bulk_density':bulk_density,'imp_width':Mw,'depth':Td,'speed':v,'max_pull':Pet,'draft':D,'slip':s*100,'cot':cot,'mrr':pro,'TE':TE,'Krwf':Krwf,'Kfwf':Kfwf,'db_power':db_power,'pu':Put,'s_out':s_out,'Kwef_out':Kwef_out,'p_out':p_out},context_instance = RequestContext(self.request))
 
 
 def sms_reply(self,make,model,implement_name,depth,speed,texture,strength,**kwargs):
@@ -222,9 +235,9 @@ def sms_reply(self,make,model,implement_name,depth,speed,texture,strength,**kwar
     # what is WTF and WTI ?
     WTF = Rf - FW
     WTI = Rr-RW - WTF
+    l = 1
     while Pet > Pst:
         if D>Pst:
-            k = 0
             s = s + 0.001
             Rr = ((Wm + Py)*(Xcgi + Hd + L + 0.04*rf)+Wt*(L+0.04*rf -Xcgt) - D*Yd)/(L-0.04*rr + 0.04*rf)
             Rf = Wm + Wt + Py - Rr
@@ -239,31 +252,37 @@ def sms_reply(self,make,model,implement_name,depth,speed,texture,strength,**kwar
             print(Pst)
             print(D)
         else:
-            k = 1
+            Ptr = D*v*5/(TE*18)
+            Put = (Ptr*100)/(P*1000*(1-0.20))
+            kwef = Rf/Wt
+            out = result_out(self,s,kwef,Put)
             break
-    Ptr = D*v*5/(TE*18)
-    Put = (Ptr*100)/(P*1000*(1-0.20))
-    #conditions have to be re-examined and tested
+    if D>Pet:
+        out = "The Tractor is overloaded reduce width of implement or depth or speed of implement"
+    else:
+        kwef = Rf/Wt
+        Ptr = D*v*5/(TE*18)
+        Put = (Ptr*100)/(P*1000*(1-0.20))
+        out = result_out(self,s,kwef,Put)
+#    send_kookoo_sms(phone_no='9735483626',message="Testing")
+    return out
+
+def result_out(self,s,kwef,Put):#conditions have to be re-examined and teste
     if s <0.08:
         s_out =  "Increase depth or speed of operation slip should not be less than 8%"
     if s > 0.15:
         s_out =  "reduce depth or speed of operation or ballast rear axle of tractor slip should not be greater than 15%"
-    if Rf/Wt <0.2:
+    if kwef <0.2:
         Kwef_out =  "reduce depth or speed of operation or ballast rear axle of tractor Front axle weight utilization factor should not be less than 0.2"
     else:
         Kwef_out = "Kwef is in the satisfactory range"
     if s>0.08 and s <0.15:
         s_out =  "Slip is in the satisfactory range" 
- 
     if Put>95 and Put<100:
         p_out =  "Tractor is properly loaded"
     elif Put<95:
         p_out =  "Tractor is underloaded"
     elif Put>100:
         p_out = "Tractor is OverLoaded reduce depth or speed of operation"
+    return(s_out,Kwef_out,p_out)
 
-
-#    send_kookoo_sms(phone_no='9735483626',message="Testing")
-    return p_out
-
- 

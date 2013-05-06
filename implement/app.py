@@ -17,6 +17,8 @@ class App(AppBase):
             texture = msg.text[index[5]+1:index[6]]
             strength = msg.text[index[6]+1:len(msg.text)]
             reply = sms_reply(self,make,model,implement,depth,speed,texture,strength)
-            msg.respond(reply)
+            s_out = reply[0]
+            print s_out
+            msg.respond(str(s_out))
             return True
         return False
